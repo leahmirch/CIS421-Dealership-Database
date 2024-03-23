@@ -178,18 +178,3 @@ def setup_database():
     conn.close()
 
 setup_database()
-
-
-
-
-
-
-# instructions for how to run / access the UI (on my MacOS)
-
-# cd desktop/desktop/school/U\ of\ M\ Dearborn/4\ Winter\ 2024/CIS\ 421/project/Dealership\ Database/
-# python3 setup_database.py
-# python3 -m venv venv
-# source venv/bin/activate
-# pip install flask
-# python3 user_interface.py
-# paste http://127.0.0.1:5000 into a browser
