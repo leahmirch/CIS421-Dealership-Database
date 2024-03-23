@@ -37,7 +37,28 @@ def handle_query():
         conn.close()
         flash('Success: Car added to the database.', 'success')
         return redirect(url_for('index'))
-    
+        
+    if query_type == 'add_customer':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        phone = request.form['phone']
+        address = request.form['address']
+        
+        if not all([first_name, last_name, email, phone, address]):
+            return jsonify({'status': 'error', 'message': 'Error: Missing required fields.'}), 400
+        
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        c.execute("""
+            INSERT INTO Customer (first_name, last_name, email, phone, address) 
+            VALUES (?, ?, ?, ?, ?)
+        """, (first_name, last_name, email, phone, address))
+        conn.commit()
+        conn.close()
+        flash('Success: Customer added to the database.', 'success')
+        return redirect(url_for('index'))
+        
     elif query_type == 'view_table':
         selected_table = request.form['selected_table']
         return redirect(url_for('view_specific_table', table_name=selected_table))
