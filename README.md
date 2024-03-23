@@ -13,14 +13,14 @@ NOTE: THIS IS UNTESTED
 (I do not have a windows device to test this on)
 ```bash
 make windows
-```
 Paste http://127.0.0.1:5000 into a browser to access the user interface
+```
 
 #### Running on MacOS:
 ```bash
 make mac
-```
 Paste http://127.0.0.1:5000 into a browser to access the user interface
+```
 
 ### Each Student's Role
 - Leah Mirch: Developed code for the inital database, created UI, designed and implimented query commands. Created commands: view tables, add car. Designed the database's user interface to handle many inputs and required feilds.
