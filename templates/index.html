@@ -18,6 +18,7 @@
             <option value="view_table">View Table</option>
             <option value="add_car">Add a Car</option>
             <option value="add_customer">Add a Customer</option>
+            <option value="add_employee">Add a Employee</option>
         </select>
 
         <div id="view_table" style="display:none;">
@@ -55,6 +56,16 @@
             <input type="submit" value="Add Customer">
         </div>
 
+        <div id="add_employee" style="display:none;">
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            <input type="text" name="role" placeholder="Role" required>
+            <input type="number" name="salary" placeholder="Salary" required>
+            <input type="text" name="hire_date" placeholder="Hire Date" required>
+            <input type="number" name="dealership_id" placeholder="Dealership ID" required>
+            <input type="submit" value="Add Employee">
+        </div>
+        
     </form>
 
     <!-- Textarea for custom query -->
@@ -70,6 +81,7 @@
         document.getElementById('view_table').style.display = 'none';
         document.getElementById('add_car').style.display = 'none';
         document.getElementById('add_customer').style.display = 'none';
+        document.getElementById('add_employee').style.display = 'none';
 
         if (queryType) {
             document.getElementById(queryType).style.display = 'block';

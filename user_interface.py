@@ -59,6 +59,30 @@ def handle_query():
         conn.close()
         flash('Success: Customer added to the database.', 'success')
         return redirect(url_for('index'))
+    
+    # in progress
+    if query_type == 'add_employee':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        role = request.form['role']
+        salary = request.form['salary']
+        hire_date = request.form['hire_date']
+        dealership_id = request.form['dealership_id']
+        
+        if not all([first_name, last_name, role, salary, hire_date, dealership_id]):
+            flash('Error: Missing required fields.', 'error')
+            return redirect(url_for('index'))
+        
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        c.execute("""
+            INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (first_name, last_name, role, salary, hire_date, dealership_id))
+        conn.commit()
+        conn.close()
+        flash('Success: Employee added to the database.', 'success')
+        return redirect(url_for('index'))
         
     elif query_type == 'view_table':
         selected_table = request.form['selected_table']

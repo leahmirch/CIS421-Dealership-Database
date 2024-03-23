@@ -112,11 +112,11 @@ def setup_database():
         "INSERT INTO Customer (first_name, last_name, email, phone, address) VALUES ('Jack', 'Black', 'jack.black@example.com', '555-5678', '654 Walnut St, Thatown')",
 
         # Inserting into Employee table
-        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Sam', 'Manager', 'Manager', 60000, '2019-06-01', 1)",
-        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Alex', 'Salesperson', 'Sales', 45000, '2020-07-15', 1)",
-        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Robin', 'Technician', 'Service', 40000, '2018-05-23', 2)",
-        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Pat', 'Salesperson', 'Sales', 45000, '2021-01-11', 2)",
-        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Taylor', 'Cleaner', 'Maintenance', 35000, '2022-02-01', 3)",
+        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Sam', 'Manager', 'manager', 60000, '2019-06-01', 1)",
+        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Alex', 'Salesperson', 'sales', 45000, '2020-07-15', 1)",
+        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Robin', 'Technician', 'service', 40000, '2018-05-23', 2)",
+        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Pat', 'Salesperson', 'sales', 45000, '2021-01-11', 2)",
+        "INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) VALUES ('Taylor', 'Cleaner', 'maintenance', 35000, '2022-02-01', 3)",
 
         # Inserting into CarTransaction table
         "INSERT INTO CarTransaction (customer_id, car_id, employee_id, transaction_date, type, amount) VALUES (1, 1, 2, '2024-03-01', 'sale', 25000)",
