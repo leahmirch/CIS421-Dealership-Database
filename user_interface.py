@@ -24,7 +24,7 @@ def handle_query():
         dealership_id = request.form['dealership_id']
 
         if not all([make, model, year, VIN, purchase_price, dealership_id]) or (status == 'sold' and not sale_price):
-            flash('Error: Missing required fields or sale price is required for sold cars.', 'error')
+            flash('Error: Missing required fields.', 'error')
             return redirect(url_for('index'))
         
         conn = sqlite3.connect('dealership.db')
@@ -46,7 +46,8 @@ def handle_query():
         address = request.form['address']
         
         if not all([first_name, last_name, email, phone, address]):
-            return jsonify({'status': 'error', 'message': 'Error: Missing required fields.'}), 400
+            flash('Error: Missing required fields.', 'error')
+            return redirect(url_for('index'))
         
         conn = sqlite3.connect('dealership.db')
         c = conn.cursor()

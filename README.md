@@ -8,15 +8,17 @@
 txt
 
 ### Running Instructions
-#### Running the Server on MacOS:
-Make sure to delete the .db file if present to start fresh each time.
+#### Running on Windows:
+NOTE: THIS IS UNTESTED
+(I do not have a windows device to test this on)
 ```bash
-cd desktop/desktop/school/U\ of\ M\ Dearborn/4\ Winter\ 2024/CIS\ 421/project/Dealership\ Database/
-python3 setup_database.py
-python3 -m venv venv
-source venv/bin/activate
-pip install flask
-python3 user_interface.py
+make windows
+```
+Paste http://127.0.0.1:5000 into a browser to access the user interface
+
+#### Running on MacOS:
+```bash
+make mac
 ```
 Paste http://127.0.0.1:5000 into a browser to access the user interface
 
