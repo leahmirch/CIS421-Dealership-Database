@@ -54,17 +54,18 @@
             <input type="text" name="address" placeholder="Address">
             <input type="submit" value="Add Customer">
         </div>
-        
+
+        <br>
     </form>
 
     <!-- Textarea for custom query -->
     <h2>Or enter a custom query:</h2>
     <form action="/execute_query" method="post">
-        <textarea name="query" rows="4" cols="50"></textarea>
+        <textarea name="query" rows="4" cols="50" placeholder="Enter SQL query here"></textarea>
         <br>
         <input type="submit" value="Execute Query">
     </form>
-
+    
 <script>
     function showForm(queryType) {
         document.getElementById('view_table').style.display = 'none';

@@ -76,5 +76,24 @@ def view_specific_table(table_name):
     conn.close()
     return render_template('view_table.html', rows=rows, table=table_name, columns=columns)
 
+@app.route('/execute_query', methods=['POST'])
+def execute_query():
+    query = request.form.get('query', '')
+    try:
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        c.execute(query)
+        if query.lower().startswith('select'):
+            rows = c.fetchall()
+            columns = [desc[0] for desc in c.description]
+            return render_template('query_results.html', rows=rows, columns=columns, error=None)
+        else:
+            conn.commit()
+            return render_template('query_results.html', message="Query executed successfully.", error=None)
+    except Exception as e:
+        return render_template('query_results.html', error=str(e))
+    finally:
+        conn.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
