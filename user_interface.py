@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
@@ -59,30 +59,6 @@ def handle_query():
         conn.close()
         flash('Success: Customer added to the database.', 'success')
         return redirect(url_for('index'))
-    
-    # in progress
-    if query_type == 'add_employee':
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        role = request.form['role']
-        salary = request.form['salary']
-        hire_date = request.form['hire_date']
-        dealership_id = request.form['dealership_id']
-        
-        if not all([first_name, last_name, role, salary, hire_date, dealership_id]):
-            flash('Error: Missing required fields.', 'error')
-            return redirect(url_for('index'))
-        
-        conn = sqlite3.connect('dealership.db')
-        c = conn.cursor()
-        c.execute("""
-            INSERT INTO Employee (first_name, last_name, role, salary, hire_date, dealership_id) 
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (first_name, last_name, role, salary, hire_date, dealership_id))
-        conn.commit()
-        conn.close()
-        flash('Success: Employee added to the database.', 'success')
-        return redirect(url_for('index'))
         
     elif query_type == 'view_table':
         selected_table = request.form['selected_table']
@@ -99,6 +75,25 @@ def view_specific_table(table_name):
     columns = [description[0] for description in c.description]
     conn.close()
     return render_template('view_table.html', rows=rows, table=table_name, columns=columns)
+
+@app.route('/execute_query', methods=['POST'])
+def execute_query():
+    query = request.form.get('query', '')
+    try:
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        c.execute(query)
+        if query.lower().startswith('select'):
+            rows = c.fetchall()
+            columns = [desc[0] for desc in c.description]
+            return render_template('query_results.html', rows=rows, columns=columns, error=None)
+        else:
+            conn.commit()
+            return render_template('query_results.html', message="Query executed successfully.", error=None)
+    except Exception as e:
+        return render_template('query_results.html', error=str(e))
+    finally:
+        conn.close()
 
 if __name__ == '__main__':
     app.run(debug=True)

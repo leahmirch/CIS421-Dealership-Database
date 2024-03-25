@@ -83,7 +83,7 @@ Paste http://127.0.0.1:5000 into a browser to access the user interface
 -**Update Car Price**: The "Update Car Price" feature in the dealership database will allow the user to change the current price of a single car within the database. The user will enter the car make, car model, and car year. From here the dealership will be able to markup or markdown the current price of the vehicle by percentage. The current value of the car will be either deducted or raised and updated into the cars purchase price. the "Update Car Price" functionality keeps all car prices up to date, ensuring no errors in customer expectation as far as what they intend to spend. 
 
 ### Each Student's Role
-- Leah Mirch: Developed code for the inital database, created UI, designed and implimented query commands. Created commands: view tables, add car. Designed the database's user interface to handle many inputs and required feilds. Created and developed makefile. Created and updated README file.
+- Leah Mirch: Developed code for the initial database, created UI, designed and implemented query commands. Created commands: view tables, add car. Designed the database's user interface to handle many inputs and required fields. Created and developed makefile. Created and updated README file. Created, and developed the custom query entry field, tested thoroughly with custom high level queries. 
 
 ### Additional Information
 Github Repository: (https://github.com/leahmirch/Dealership-Database) - This repository documents the development process, including code commits, progress tracking, and collaboration. It serves as a central platform for code management and version control, facilitating a structured and efficient development workflow.
