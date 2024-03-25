@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query Results</title>
+</head>
+<body>
+    <h1>Query Results</h1>
+    {% if rows %}
+    <table border="1">
+        <thead>
+            <tr>
+                {% for col in rows[0].keys() %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for cell in row %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>
