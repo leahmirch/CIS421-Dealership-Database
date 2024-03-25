@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Dealership Database</title>
-</head>
+    <head>
+        <title>Dealership Database</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                padding-left: 20px;
+            }
+            form, h1, h2 {
+                width: 475px;
+            }
+            select, textarea, input[type="submit"] {
+                display: block;
+                margin-top: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .message {
+                margin-top: 20px;
+                padding: 10px;
+                background-color: #e7e7e7;
+                border: 1px solid #d4d4d4;
+            }
+            table {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
 <body>
     <h1>Dealership Database Interface</h1>
+    <br>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -12,70 +38,44 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <form action="/handle_query" method="post">
-        <select name="query_type" onchange="showForm(this.value)">
-            <option value="">Select a Query...</option>
-            <option value="view_table">View Table</option>
-            <option value="add_car">Add a Car</option>
-            <option value="add_customer">Add a Customer</option>
+    
+    <!-- Only View Table Option -->
+    <form action="/view_specific_table" method="post">
+        <select name="selected_table">
+            <option value="">Select a Table to View...</option>
+            {% for table in tables %}
+            <option value="{{ table }}">{{ table }}</option>
+            {% endfor %}
         </select>
-
-        <div id="view_table" style="display:none;">
-            <select name="selected_table">
-                <option value="">Select a Table...</option>
-                {% for table in tables %}
-                <option value="{{ table }}">{{ table }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="View Selected Table">
-        </div>
-
-        <div id="add_car" style="display:none;">
-            <input type="text" name="make" placeholder="Make">
-            <input type="text" name="model" placeholder="Model">
-            <input type="number" name="year" placeholder="Year">
-            <input type="text" name="VIN" placeholder="VIN">
-            <input type="number" name="purchase_price" placeholder="Purchase Price">
-            <input type="number" name="sale_price" placeholder="Sale Price">
-            <select name="status">
-                <option value="available">Available</option>
-                <option value="sold">Sold</option>
-                <option value="maintenance">Maintenance</option>
-            </select>
-            <input type="number" name="dealership_id" placeholder="Dealers ID" placeholder="Dealership ID">
-            <input type="submit" value="Add Car">
-        </div>
-
-        <div id="add_customer" style="display:none;">
-            <input type="text" name="first_name" placeholder="First Name">
-            <input type="text" name="last_name" placeholder="Last Name">
-            <input type="text" name="email" placeholder="Email">
-            <input type="text" name="phone" placeholder="Phone Number">
-            <input type="text" name="address" placeholder="Address">
-            <input type="submit" value="Add Customer">
-        </div>
-
-        <br>
+        <input type="submit" value="View Selected Table">
     </form>
+    
+    <br>
 
     <!-- Textarea for custom query -->
     <h2>Or enter a custom query:</h2>
     <form action="/execute_query" method="post">
         <textarea name="query" rows="4" cols="50" placeholder="Enter Custom SQL query here"></textarea>
-        <br>
         <input type="submit" value="Execute Custom Query">
     </form>
     
-<script>
-    function showForm(queryType) {
-        document.getElementById('view_table').style.display = 'none';
-        document.getElementById('add_car').style.display = 'none';
-        document.getElementById('add_customer').style.display = 'none';
-
-        if (queryType) {
-            document.getElementById(queryType).style.display = 'block';
+    <script>
+        function showForm(queryType) {
+            document.getElementById('view_table').style.display = 'none';
+    
+            if (queryType) {
+                document.getElementById(queryType).style.display = 'block';
+            }
         }
-    }
-</script>
+    </script>
+    <br>
+    <br>
+    <img src="https://www.vdm.ford.com/content/dam/vdm_ford/live/en_us/ford/nameplate/escape/2024/collections/3_2/Escape_VHP_Billboard_2160x1215.jpg/jcr:content/renditions/cq5dam.web.2160.2160.jpeg" alt="Car Image" width="475" height="275">
+    
+    <br>
+    <br>
+    <footer>
+        <p>Made by Leah Mirch and Andrew Leutzinger. April 2024.</p>
+    </footer>    
 </body>
 </html>
