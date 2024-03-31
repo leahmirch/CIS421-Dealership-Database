@@ -81,13 +81,11 @@ def setup_database():
             test_drive_id INTEGER PRIMARY KEY,
             car_id INTEGER,
             customer_id INTEGER,
-            employee_id INTEGER,
             test_drive_date TEXT,
             duration INTEGER, -- Duration in minutes
             comments TEXT,
             FOREIGN KEY(car_id) REFERENCES Car(car_id),
             FOREIGN KEY(customer_id) REFERENCES Customer(customer_id),
-            FOREIGN KEY(employee_id) REFERENCES Employee(employee_id)
         )"""
     ]
     # Execute table creation queries
