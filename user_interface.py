@@ -2,21 +2,60 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+app.secret_key = 'secret_key_here'
 
 @app.route('/')
 def index():
     tables = ['Car', 'Customer', 'Employee', 'CarTransaction', 'Dealership', 'ServiceAppointment', 'Part', 'CarParts', 'TestDrive']
     return render_template('index.html', tables=tables)
 
-@app.route('/handle_query', methods=['POST'])
-def handle_query():
-    query_type = request.form['query_type']
-        
-    if query_type == 'view_table':
-        selected_table = request.form['selected_table']
-        return redirect(url_for('view_specific_table', table_name=selected_table))
+@app.route('/add_car', methods=['POST'])
+def add_car():
+    print(request.form)  
+    try:
+        make = request.form['make']
+        model = request.form['model']
+        year = request.form['year']
+        VIN = request.form['VIN']
+        purchase_price = request.form['purchase_price']
+        sale_price = request.form.get('sale_price', None)  # Optional field
+        status = request.form['status']
+        dealership_id = request.form['dealership_id']
 
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        c.execute('''INSERT INTO Car (make, model, year, VIN, purchase_price, sale_price, status, dealership_id)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)''',
+                  (make, model, year, VIN, purchase_price, sale_price if sale_price else None, status, dealership_id))
+        conn.commit()
+        flash('Car added successfully!', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {e}', 'error')
+    finally:
+        conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/add_customer', methods=['POST'])
+def add_customer():
+    print(request.form)  
+    try:
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        phone = request.form['phone']
+        address = request.form['address']
+
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        c.execute('''INSERT INTO Customer (first_name, last_name, email, phone, address)
+                     VALUES (?, ?, ?, ?, ?)''',
+                  (first_name, last_name, email, phone, address))
+        conn.commit()
+        flash('Customer added successfully!', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {e}', 'error')
+    finally:
+        conn.close()
     return redirect(url_for('index'))
 
 @app.route('/view_specific_table', methods=['POST'])
