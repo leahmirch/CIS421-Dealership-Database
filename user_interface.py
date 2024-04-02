@@ -7,8 +7,16 @@ app.secret_key = 'secret_key_here'
 @app.route('/')
 def index():
     tables = ['Car', 'Customer', 'Employee', 'CarTransaction', 'Dealership', 'ServiceAppointment', 'Part', 'CarParts', 'TestDrive']
-    return render_template('index.html', tables=tables)
+    conn = sqlite3.connect('dealership.db')
+    c = conn.cursor()
+    c.execute("SELECT customer_id, first_name, last_name FROM Customer ORDER BY last_name, first_name")
+    customers = c.fetchall()
+    c.execute("SELECT dealership_id, name FROM Dealership ORDER BY name")
+    dealerships = c.fetchall()
+    conn.close()
+    return render_template('index.html', tables=tables, customers=customers, dealerships=dealerships)
 
+# add car
 @app.route('/add_car', methods=['POST'])
 def add_car():
     print(request.form)  
@@ -35,6 +43,7 @@ def add_car():
         conn.close()
     return redirect(url_for('index'))
 
+# add customer
 @app.route('/add_customer', methods=['POST'])
 def add_customer():
     print(request.form)  
@@ -58,6 +67,42 @@ def add_customer():
         conn.close()
     return redirect(url_for('index'))
 
+# view transaction
+@app.route('/view_customer_transaction', methods=['POST'])
+def view_customer_transaction():
+    print("Attempting to view customer transactions...")
+    customer_id = request.form['customer_id']
+    print(f"Received customer_id: {customer_id}")
+    
+    try:
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+        query = '''
+                SELECT CarTransaction.transaction_id, Car.make, Car.model, Car.year, Employee.first_name, 
+                CarTransaction.transaction_date, CarTransaction.type, CarTransaction.amount
+                FROM CarTransaction
+                JOIN Customer ON CarTransaction.customer_id = Customer.customer_id
+                JOIN Car ON CarTransaction.car_id = Car.car_id
+                JOIN Employee ON CarTransaction.employee_id = Employee.employee_id
+                WHERE Customer.customer_id = ?
+                '''
+        print(f"Executing query: {query} with customer_id = {customer_id}")
+        
+        c.execute(query, (customer_id,))
+        transactions = c.fetchall()
+        print(f"Found {len(transactions)} transactions for customer_id = {customer_id}")
+        
+        columns = ['Transaction ID', 'Make', 'Model', 'Year', 'Employee First Name', 'Transaction Date', 'Type', 'Amount']
+    except Exception as e:
+        transactions = []
+        print(f"An error occurred: {e}") 
+        flash(f'An error occurred: {e}', 'error')
+    finally:
+        conn.close()
+
+    return render_template('view_customer_transaction.html', transactions=transactions, columns=columns)
+
+# view table
 @app.route('/view_specific_table', methods=['POST'])
 def view_specific_table():
     table_name = request.form['selected_table']
@@ -68,6 +113,10 @@ def view_specific_table():
     columns = [description[0] for description in c.description]
     conn.close()
     return render_template('view_table.html', rows=rows, table=table_name, columns=columns)
+
+
+
+
 
 @app.route('/execute_query', methods=['POST'])
 def execute_query():

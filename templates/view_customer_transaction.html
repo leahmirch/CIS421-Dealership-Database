@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Transactions</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                padding-left: 20px;
+            }
+            form, h1, h2 {
+                width: 700px;
+            }
+            select, input[type="text"], input[type="email"], input[type="number"], textarea, input[type="submit"] {
+                margin-top: 10px;
+                box-sizing: border-box;
+            }
+            .message {
+                margin-top: 20px;
+                padding: 10px;
+                background-color: #e7e7e7;
+                border: 1px solid #d4d4d4;
+            }
+            table {
+                margin-top: 20px;
+            }
+            .input-group {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .input-group > * {
+                flex: 1; 
+                margin-right: 10px; 
+            }
+            .input-group > *:last-child {
+                margin-right: 0; 
+            }
+        </style>
+    </head>
+<body>
+<h1>Customer Transactions</h1>
+<table border="1">
+    <thead>
+        <tr>
+            {% for col in columns %}
+                <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                {% for cell in transaction %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/">Back to Home</a>
+</body>
+</html>

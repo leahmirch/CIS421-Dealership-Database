@@ -55,9 +55,10 @@
     <option value="">Select a Query...</option>
     <option value="add_car">Add a Car</option>
     <option value="add_customer">Add a Customer</option>
+    <option value="view_customer_transaction">View Customer Transaction</option>
 </select>
 <br>
-    <!-- Add Car Form with Flexbox -->
+    <!-- Add Car Form -->
     <div id="add_car" style="display:none;">
         <form action="/add_car" method="post">
             <div class="input-group">
@@ -78,7 +79,7 @@
         </form>
     </div>
 
-    <!-- Add Customer Form with Flexbox -->
+    <!-- Add Customer Form -->
     <div id="add_customer" style="display:none;">
         <form action="/add_customer" method="post">
             <div class="input-group">
@@ -89,8 +90,21 @@
             <input type="text" name="address" placeholder="Address">
         </div>
         <input type="submit" value="Add Customer">
-    </form>
-</div>
+        </form>
+    </div>
+
+    <!-- View Customer Transaction -->
+    <div id="view_customer_transaction" style="display:none;">
+        <form action="/view_customer_transaction" method="post">
+            <select name="customer_id">
+                {% for customer_id, first_name, last_name in customers %}
+                    <option value="{{ customer_id }}">{{ first_name }} {{ last_name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="View Transactions">
+        </form>
+    </div>    
+
 <br>
 
 <!-- Only View Table Option -->
@@ -127,12 +141,15 @@
         // Initially hide both forms
         document.getElementById('add_car').style.display = 'none';
         document.getElementById('add_customer').style.display = 'none';
+        document.getElementById('view_customer_transaction').style.display = 'none';
 
         // Show the selected form
         if (selectedValue === 'add_car') {
             document.getElementById('add_car').style.display = 'block';
         } else if (selectedValue === 'add_customer') {
             document.getElementById('add_customer').style.display = 'block';
+        } else if (selectedValue === 'view_customer_transaction') {
+            document.getElementById('view_customer_transaction').style.display = 'block';
         }
     }
 </script>
