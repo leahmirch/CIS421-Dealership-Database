@@ -56,6 +56,8 @@
     <option value="add_car">Add a Car</option>
     <option value="add_customer">Add a Customer</option>
     <option value="view_customer_transaction">View Customer Transaction</option>
+    <option value="update_car_price">Update Car Price</option>
+    <option value="add_service_appointment">Add Service Appointment</option>
 </select>
 <br>
     <!-- Add Car Form -->
@@ -103,7 +105,45 @@
             </select>
             <input type="submit" value="View Transactions">
         </form>
-    </div>    
+    </div> 
+
+    <!-- Update Car Price Form -->
+    <div id="update_car_price" style="display:none;">
+        <form action="/update_car_price" method="post">
+            <div class="input-group">
+                <input type="text" name="make" placeholder="Make" required>
+                <input type="text" name="model" placeholder="Model" required>
+                <input type="number" name="year" placeholder="Year" required>
+                <input type="number" name="percentage" placeholder="Percentage" required>
+            </div>
+            <p>(positive percentage for markup, negative percentage for markdown)</p>
+            <input type="submit" value="Update Car Price">
+        </form>
+    </div>
+
+    <!-- New Service Appointment Form -->
+    <div id="add_service_appointment" style="display:none;">
+        <form action="/add_service_appointment" method="post">
+            <div class="input-group">
+                <input type="text" name="make" placeholder="Make" required>
+                <input type="text" name="model" placeholder="Model" required>
+                <input type="number" name="year" placeholder="Year" required>
+                <select name="service">
+                    <option value="Oil Change">Oil Change</option>
+                    <option value="Tire Rotation">Tire Rotation</option>
+                    <option value="Brake Inspection">Brake Inspection</option>
+                    <option value="Engine Diagnostic">Engine Diagnostic</option>
+                    <option value="Transmission Fluid Replacement">Transmission Fluid Replacement</option>
+                </select>
+                <input type="number" name="service_cost" placeholder="Service Cost" required step="0.01">
+                <input type="number" name="employee_id" placeholder="Employee ID" required>
+            </div>
+            <input type="submit" value="Add Service Appointment">
+        </form>
+    </div>
+
+
+
 
 <br>
 
@@ -142,6 +182,8 @@
         document.getElementById('add_car').style.display = 'none';
         document.getElementById('add_customer').style.display = 'none';
         document.getElementById('view_customer_transaction').style.display = 'none';
+        document.getElementById('update_car_price').style.display = 'none';
+        document.getElementById('add_service_appointment').style.display = 'none';
 
         // Show the selected form
         if (selectedValue === 'add_car') {
@@ -150,7 +192,12 @@
             document.getElementById('add_customer').style.display = 'block';
         } else if (selectedValue === 'view_customer_transaction') {
             document.getElementById('view_customer_transaction').style.display = 'block';
+        } else if (selectedValue === 'update_car_price') {
+            document.getElementById('update_car_price').style.display = 'block';
+        } else if (selectedValue === 'add_service_appointment') {
+            document.getElementById('add_service_appointment').style.display = 'block';
         }
+        
     }
 </script>
 </body>

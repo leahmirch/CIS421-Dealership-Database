@@ -114,6 +114,80 @@ def view_specific_table():
     conn.close()
     return render_template('view_table.html', rows=rows, table=table_name, columns=columns)
 
+# update car price
+@app.route('/update_car_price', methods=['POST'])
+def update_car_price():
+    try:
+        make = request.form['make']
+        model = request.form['model']
+        year = int(request.form['year'])
+        percentage = float(request.form['percentage']) / 100 
+
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+
+        c.execute('''SELECT car_id, purchase_price FROM Car WHERE make=? AND model=? AND year=?''', (make, model, year))
+        car = c.fetchone()
+
+        if car:
+            car_id, current_price = car
+            new_price = current_price * (1 + percentage) 
+
+            c.execute('''UPDATE Car SET purchase_price=? WHERE car_id=?''', (new_price, car_id))
+            conn.commit()
+            flash(f'Car price updated successfully to ${new_price:.2f}!', 'success')
+        else:
+            flash('Car not found!', 'error')
+
+    except Exception as e:
+        flash(f'An error occurred: {e}', 'error')
+
+    finally:
+        conn.close()
+
+    return redirect(url_for('index'))
+
+# add service appointment
+@app.route('/add_service_appointment', methods=['POST'])
+def add_service_appointment():
+    try:
+        make = request.form['make']
+        model = request.form['model']
+        year = request.form['year']
+        service = request.form['service']
+        service_cost = request.form['service_cost']
+        employee_id = request.form['employee_id']
+
+        conn = sqlite3.connect('dealership.db')
+        c = conn.cursor()
+
+        # Find car_id for the car matching the make, model, and year
+        c.execute('''SELECT car_id FROM Car WHERE make=? AND model=? AND year=? LIMIT 1''', (make, model, year))
+        car = c.fetchone()
+
+        if car:
+            car_id = car[0]
+
+            # Assume the next available date for a service is tomorrow (for simplicity)
+            from datetime import datetime, timedelta
+            next_available_date = datetime.now() + timedelta(days=1)
+            formatted_date = next_available_date.strftime('%Y-%m-%d')
+
+            # Insert new service appointment
+            c.execute('''INSERT INTO ServiceAppointment (car_id, appointment_date, description, service_cost, employee_id) 
+                         VALUES (?, ?, ?, ?, ?)''', (car_id, formatted_date, service, service_cost, employee_id))
+            conn.commit()
+            flash('Service appointment added successfully!', 'success')
+        else:
+            flash('Car not found!', 'error')
+
+    except Exception as e:
+        flash(f'An error occurred: {e}', 'error')
+    finally:
+        conn.close()
+    return redirect(url_for('index'))
+
+
 
 
 
