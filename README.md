@@ -9,8 +9,6 @@ This project aims to design and implement a relational database system for manag
 
 ### Running Instructions
 #### Running on Windows:
-NOTE: THIS IS UNTESTED
-(I do not have a windows device to test this on)
 ```bash
 make windows
 Paste http://127.0.0.1:5000 into a browser to access the user interface
