@@ -2,7 +2,6 @@
 DB_FILE=dealership.db
 VENV=venv
 
-# Default target combines all steps
 mac:
 	@echo "Setting up the Dealership Database application..."
 	@if [ -f $(DB_FILE) ]; then echo "Deleting existing database file..."; rm $(DB_FILE); fi
@@ -15,7 +14,6 @@ mac:
 	@echo "Running Flask application..."
 	. $(VENV)/bin/activate && python3 user_interface.py
 
-# hasn't been tested (I do not have a Windows device)
 windows:
 	@echo Setting up the Dealership Database application...
 	@if exist $(DB_FILE) (echo Deleting existing database file... & del $(DB_FILE))
