@@ -70,7 +70,7 @@ Paste http://127.0.0.1:5000 into a browser to access the user interface
 - **Primary Key**: test_drive_id
 - **Foreign Keys**: car_id references Car(car_id), customer_id references Customer(customer_id), employee_id references Employee(employee_id)
 - **Attributes**: car_id, customer_id, employee_id, test_drive_date, duration, comments
-- **Use**: This table keeps records of test drives offered to customers. It logs which customer tested which car, the employee who facilitated the test drive, the date and duration of the test drive, and any comments about the customer's experience or feedback on the car.
+- **Use**: This table keeps records of test drives offered to customers. It logs which customer tested which car, the date and duration of the test drive, and any comments about the customer's experience or feedback on the car.
 
 ### Commands Implemented
 - **View Tables Command**: The "View Tables" feature enables users to select and view different tables within the dealership's database, such as Cars, Customers, Employees, Transactions, Dealerships, Service Appointments, Parts, Car Parts, and Test Drives. This functionality provides a comprehensive overview of the dealership's operations, from inventory and customer interactions to employee details and financial transactions.Users can select a table from a dropdown menu, which dynamically updates the page to display the contents of the chosen table. The system presents the data in a tabulated format, with each column representing a field in the database. This allows for easy reading and understanding of the database's current state, offering insights into various aspects of the dealership's operations.
