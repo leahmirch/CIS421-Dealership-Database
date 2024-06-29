@@ -2,7 +2,6 @@
 
 ### Student Names and Emails
 - Leah Mirch (lmirch@umich.edu)
-- Andrew Leutzinger (aleut@umich.edu)
 
 ### Introduction
 This project aims to design and implement a relational database system for managing data related to an enterprise. The focus is on understanding real-world data requirements, designing an appropriate database schema, and utilizing SQL for querying and updating the database. The database schema is designed based on an Entity-Relationship (ER) diagram, which is then converted into a relational database schema. 
@@ -81,4 +80,4 @@ Paste http://127.0.0.1:5000 into a browser to access the user interface
 - **New Cars Maintenance**: The "New Service" feature allows the user to add a new service appointment for a car that already exists within the database. The user must enter the car make, car model, car year, and choose from which service is being performed on the car. The date used will be the next available date for a service. This data will be stored as a new entry in the ServiceAppointment table. This feature will allow for the dealership to keep track of which service is needed to perform next, ensuring efficiency of completion.
 
 ### Additional Information
-Github Repository: (https://github.com/leahmirch/Dealership-Database) - This repository documents the development process, including code commits, progress tracking, and collaboration. It serves as a central platform for code management and version control, facilitating a structured and efficient development workflow.
+Github Repository: (https://github.com/leahmirch/Dealership-Database) - This repository documents the development process, including code commits, and progress tracking. It serves as a central platform for code management and version control, facilitating a structured and efficient development workflow.
